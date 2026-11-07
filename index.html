@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habitat — Contemporary Architectural Estates</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-serif { font-family: 'Cinzel', serif; }
+  </style>
+</head>
+<body class="bg-stone-950 text-stone-100 antialiased selection:bg-emerald-600 selection:text-white">
+
+  <!-- Navigation -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-stone-950/80 backdrop-blur-md border-b border-stone-800">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-full border border-emerald-500/50 flex items-center justify-center text-emerald-400 font-serif font-bold">H</span>
+        <span class="text-xl font-serif tracking-widest uppercase font-bold">Habitat</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest text-stone-400">
+        <a href="#properties" class="hover:text-stone-100 transition">Estates</a>
+        <a href="#calculator" class="hover:text-stone-100 transition">Mortgage Lab</a>
+        <a href="#virtual-tour" class="hover:text-stone-100 transition">3D Experience</a>
+        <a href="#contact" class="hover:text-stone-100 transition">Private Advisory</a>
+      </nav>
+      <a href="#properties" class="px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold uppercase tracking-wider transition">
+        Browse Properties
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="min-h-screen pt-32 pb-20 flex items-center relative overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=80" alt="Habitat Villa" class="w-full h-full object-cover opacity-35 scale-105">
+      <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/70 to-stone-950/40"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+      <div class="max-w-3xl space-y-8">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/50 text-emerald-400 text-xs font-semibold tracking-widest uppercase">
+          Prime Architectural Real Estate
+        </div>
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-serif font-bold tracking-tight leading-tight">
+          Where monolithic design meets quiet luxury.
+        </h1>
+        <p class="text-lg text-stone-300 font-light max-w-xl leading-relaxed">
+          Curating transcendent private residences, modernist coastal retreats, and heritage penthouses for discerning collectors of space.
+        </p>
+
+        <!-- Search Filter Bar -->
+        <div class="p-4 rounded-2xl bg-stone-900/90 border border-stone-800 backdrop-blur-lg shadow-2xl grid sm:grid-cols-4 gap-3">
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-stone-400 mb-1">Location</label>
+            <select id="locFilter" class="w-full bg-stone-950 px-3 py-2 rounded-lg text-sm border border-stone-800 text-stone-200">
+              <option value="all">All Global Hubs</option>
+              <option value="zurich">Zurich, Switzerland</option>
+              <option value="monaco">Monaco Coast</option>
+              <option value="kyoto">Kyoto Highlands</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-stone-400 mb-1">Typology</label>
+            <select id="typeFilter" class="w-full bg-stone-950 px-3 py-2 rounded-lg text-sm border border-stone-800 text-stone-200">
+              <option value="all">All Properties</option>
+              <option value="villa">Coastal Villa</option>
+              <option value="penthouse">Sky Penthouse</option>
+              <option value="estate">Country Estate</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-stone-400 mb-1">Price Bracket</label>
+            <select id="priceFilter" class="w-full bg-stone-950 px-3 py-2 rounded-lg text-sm border border-stone-800 text-stone-200">
+              <option value="all">$3M - $40M+</option>
+              <option value="low">$3M - $7M</option>
+              <option value="mid">$7M - $15M</option>
+              <option value="high">$15M+</option>
+            </select>
+          </div>
+          <div class="flex items-end">
+            <button onclick="filterProperties()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-xs font-bold uppercase tracking-wider text-white transition flex items-center justify-center gap-2">
+              <i data-lucide="search" class="w-4 h-4"></i>
+              <span>Filter Estates</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Properties Grid -->
+  <section id="properties" class="py-24 max-w-7xl mx-auto px-6">
+    <div class="flex flex-col sm:flex-row justify-between sm:items-end gap-6 mb-16">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-widest text-emerald-400">Exclusive Portfolio</span>
+        <h2 class="text-4xl font-serif font-bold mt-2">Curated Residences</h2>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="setCategory('all')" class="cat-pill active px-4 py-2 rounded-full border border-emerald-500 bg-emerald-600/20 text-emerald-400 text-xs font-semibold">All</button>
+        <button onclick="setCategory('villa')" class="cat-pill px-4 py-2 rounded-full border border-stone-800 bg-stone-900 text-stone-400 text-xs font-semibold hover:border-stone-700">Villas</button>
+        <button onclick="setCategory('penthouse')" class="cat-pill px-4 py-2 rounded-full border border-stone-800 bg-stone-900 text-stone-400 text-xs font-semibold hover:border-stone-700">Penthouses</button>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8" id="propertyGrid">
+      <!-- Item 1 -->
+      <div class="prop-card rounded-3xl overflow-hidden bg-stone-900 border border-stone-800 hover:border-stone-700 transition group" data-category="villa">
+        <div class="relative h-72 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80" alt="Villa Aurelia" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <span class="absolute top-4 left-4 px-3 py-1 bg-stone-950/80 backdrop-blur rounded-full text-[11px] font-semibold text-emerald-400 border border-stone-800">For Sale</span>
+        </div>
+        <div class="p-6 space-y-4">
+          <div class="flex justify-between items-baseline">
+            <h3 class="text-xl font-serif font-bold">Villa Obsidian</h3>
+            <span class="text-lg font-mono font-bold text-emerald-400">$12,800,000</span>
+          </div>
+          <p class="text-xs text-stone-400 flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-500"></i> Lake Como, Italy</p>
+          <div class="pt-4 border-t border-stone-800 grid grid-cols-3 gap-2 text-center text-xs text-stone-300">
+            <div><span class="block font-bold">6</span> Beds</div>
+            <div><span class="block font-bold">8</span> Baths</div>
+            <div><span class="block font-bold">8,400</span> sq ft</div>
+          </div>
+          <button onclick="openModal('Villa Obsidian', '$12,800,000', 'Lake Como, Italy')" class="w-full mt-2 py-2.5 rounded-xl border border-stone-700 hover:bg-stone-800 text-xs font-semibold tracking-wider uppercase transition">Schedule Private Tour</button>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="prop-card rounded-3xl overflow-hidden bg-stone-900 border border-stone-800 hover:border-stone-700 transition group" data-category="penthouse">
+        <div class="relative h-72 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" alt="Skyline Crown" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <span class="absolute top-4 left-4 px-3 py-1 bg-stone-950/80 backdrop-blur rounded-full text-[11px] font-semibold text-emerald-400 border border-stone-800">Prime Listing</span>
+        </div>
+        <div class="p-6 space-y-4">
+          <div class="flex justify-between items-baseline">
+            <h3 class="text-xl font-serif font-bold">The Triplex Sky Pavilion</h3>
+            <span class="text-lg font-mono font-bold text-emerald-400">$24,500,000</span>
+          </div>
+          <p class="text-xs text-stone-400 flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-500"></i> Zurich Promenade, CH</p>
+          <div class="pt-4 border-t border-stone-800 grid grid-cols-3 gap-2 text-center text-xs text-stone-300">
+            <div><span class="block font-bold">4</span> Beds</div>
+            <div><span class="block font-bold">5.5</span> Baths</div>
+            <div><span class="block font-bold">6,120</span> sq ft</div>
+          </div>
+          <button onclick="openModal('The Triplex Sky Pavilion', '$24,500,000', 'Zurich Promenade, CH')" class="w-full mt-2 py-2.5 rounded-xl border border-stone-700 hover:bg-stone-800 text-xs font-semibold tracking-wider uppercase transition">Schedule Private Tour</button>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="prop-card rounded-3xl overflow-hidden bg-stone-900 border border-stone-800 hover:border-stone-700 transition group" data-category="villa">
+        <div class="relative h-72 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" alt="Monolith Horizon" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <span class="absolute top-4 left-4 px-3 py-1 bg-stone-950/80 backdrop-blur rounded-full text-[11px] font-semibold text-emerald-400 border border-stone-800">Featured</span>
+        </div>
+        <div class="p-6 space-y-4">
+          <div class="flex justify-between items-baseline">
+            <h3 class="text-xl font-serif font-bold">The Horizon Sanctuary</h3>
+            <span class="text-lg font-mono font-bold text-emerald-400">$18,200,000</span>
+          </div>
+          <p class="text-xs text-stone-400 flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-500"></i> Malibu Bluffs, CA</p>
+          <div class="pt-4 border-t border-stone-800 grid grid-cols-3 gap-2 text-center text-xs text-stone-300">
+            <div><span class="block font-bold">5</span> Beds</div>
+            <div><span class="block font-bold">7</span> Baths</div>
+            <div><span class="block font-bold">9,200</span> sq ft</div>
+          </div>
+          <button onclick="openModal('The Horizon Sanctuary', '$18,200,000', 'Malibu Bluffs, CA')" class="w-full mt-2 py-2.5 rounded-xl border border-stone-700 hover:bg-stone-800 text-xs font-semibold tracking-wider uppercase transition">Schedule Private Tour</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Mortgage Calculator -->
+  <section id="calculator" class="py-24 bg-stone-900/60 border-t border-stone-800">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center space-y-3 mb-12">
+        <span class="text-xs font-mono uppercase tracking-widest text-emerald-400">Financial Modeling</span>
+        <h2 class="text-3xl font-serif font-bold">Mortgage & Financing Estimator</h2>
+      </div>
+
+      <div class="p-8 sm:p-10 rounded-3xl bg-stone-950 border border-stone-800 shadow-2xl grid md:grid-cols-2 gap-8 items-center">
+        <div class="space-y-6">
+          <div>
+            <div class="flex justify-between text-xs uppercase text-stone-400 mb-2">
+              <span>Property Value</span>
+              <span id="priceVal" class="text-emerald-400 font-mono font-bold">$12,000,000</span>
+            </div>
+            <input type="range" id="priceRange" min="3000000" max="30000000" step="500000" value="12000000" oninput="calcMortgage()" class="w-full accent-emerald-500 cursor-pointer">
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs uppercase text-stone-400 mb-2">
+              <span>Down Payment (30%)</span>
+              <span id="downVal" class="text-emerald-400 font-mono font-bold">$3,600,000</span>
+            </div>
+            <input type="range" id="downRange" min="15" max="60" value="30" oninput="calcMortgage()" class="w-full accent-emerald-500 cursor-pointer">
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs uppercase text-stone-400 mb-2">
+              <span>Interest Rate</span>
+              <span id="rateVal" class="text-emerald-400 font-mono font-bold">5.2%</span>
+            </div>
+            <input type="range" id="rateRange" min="3" max="8" step="0.1" value="5.2" oninput="calcMortgage()" class="w-full accent-emerald-500 cursor-pointer">
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-stone-900 border border-stone-800 text-center space-y-4">
+          <span class="text-xs font-mono uppercase tracking-widest text-stone-400">Estimated Monthly Commitment</span>
+          <div id="monthlyPayment" class="text-4xl font-serif font-bold text-emerald-400">$46,180</div>
+          <p class="text-xs text-stone-400 max-w-xs mx-auto leading-relaxed">Assumes 30-year fixed term private banking structure. Excludes local real estate tax & estate maintenance.</p>
+          <button onclick="alert('Our private wealth director has logged your financing inquiry.')" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs uppercase tracking-wider transition">Inquire With Private Banker</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Booking -->
+  <div id="tourModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6">
+    <div class="bg-stone-900 border border-stone-800 p-8 rounded-3xl max-w-md w-full space-y-6 relative">
+      <button onclick="closeModal()" class="absolute top-6 right-6 text-stone-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      <div>
+        <span class="text-xs uppercase text-emerald-400 font-mono">VIP Appointment</span>
+        <h3 id="modalTitle" class="text-2xl font-serif font-bold mt-1">Schedule Viewing</h3>
+        <p id="modalSub" class="text-xs text-stone-400 mt-1"></p>
+      </div>
+      <form onsubmit="event.preventDefault(); alert('Appointment requested. Our senior partner will contact you directly.'); closeModal();" class="space-y-4">
+        <input type="text" placeholder="Full Legal Name" required class="w-full px-4 py-3 bg-stone-950 border border-stone-800 rounded-xl text-sm text-stone-200">
+        <input type="email" placeholder="Private Email Address" required class="w-full px-4 py-3 bg-stone-950 border border-stone-800 rounded-xl text-sm text-stone-200">
+        <input type="date" required class="w-full px-4 py-3 bg-stone-950 border border-stone-800 rounded-xl text-sm text-stone-200">
+        <button type="submit" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-widest rounded-xl transition">Confirm Concierge Request</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="border-t border-stone-800 py-12 text-center text-xs text-stone-500">
+    <p>© 2026 Habitat Real Estate International. Licensed Architectural Brokerage.</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    function setCategory(cat) {
+      document.querySelectorAll('.cat-pill').forEach(b => {
+        b.className = 'cat-pill px-4 py-2 rounded-full border border-stone-800 bg-stone-900 text-stone-400 text-xs font-semibold hover:border-stone-700';
+      });
+      event.target.className = 'cat-pill active px-4 py-2 rounded-full border border-emerald-500 bg-emerald-600/20 text-emerald-400 text-xs font-semibold';
+      
+      document.querySelectorAll('.prop-card').forEach(card => {
+        if (cat === 'all' || card.dataset.category === cat) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    function calcMortgage() {
+      const price = parseFloat(document.getElementById('priceRange').value);
+      const downPct = parseFloat(document.getElementById('downRange').value);
+      const rate = parseFloat(document.getElementById('rateRange').value) / 100 / 12;
+      const downAmt = price * (downPct / 100);
+      const principal = price - downAmt;
+      const n = 360;
+
+      const monthly = (principal * rate * Math.pow(1 + rate, n)) / (Math.pow(1 + rate, n) - 1);
+
+      document.getElementById('priceVal').textContent = '$' + price.toLocaleString();
+      document.getElementById('downVal').textContent = '$' + Math.round(downAmt).toLocaleString() + ' (' + downPct + '%)';
+      document.getElementById('rateVal').textContent = (rate * 12 * 100).toFixed(1) + '%';
+      document.getElementById('monthlyPayment').textContent = '$' + Math.round(monthly).toLocaleString();
+    }
+
+    function openModal(title, price, loc) {
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalSub').textContent = price + ' — ' + loc;
+      document.getElementById('tourModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('tourModal').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
